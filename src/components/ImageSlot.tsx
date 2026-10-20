@@ -50,6 +50,7 @@ export function ImageSlot({ slot, kind, priority = false, className, onReady }: 
         ready && "is-ready",
         className,
       )}
+      style={kind === "hero" && slot.objectPosition ? { objectPosition: slot.objectPosition } : undefined}
       src={Images.url(path)}
       alt={ready ? slot.alt : ""}
       width={kind === "logo" ? 240 : 1200}

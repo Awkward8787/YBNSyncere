@@ -2,7 +2,8 @@
  * Public copy and slots.
  *
  * Hero photograph — public/images/hero.webp or .jpg
- *   Shown full-bleed in black and white. Until the file exists, the hero is type only.
+ *   Full-bleed background behind the title, forced grayscale, under a dark scrim.
+ *   portrait.objectPosition keeps the face clear of the type. Until the file exists, the hero is type only.
  * Cover — public/images/cover.webp or .jpg
  *   Square jacket, shown as supplied (gold stays in the file). Until then, a typeset title.
  * Management logo — public/images/management.webp or .jpg
@@ -18,6 +19,8 @@ export type MediaSlot = {
   alt: string;
   pendingAlt: string;
   pendingLabel: string;
+  /** CSS object-position. Used by the hero so the face stays clear of the title. */
+  objectPosition?: string;
 };
 
 export type ExternalLink = {
@@ -63,14 +66,15 @@ export type SiteContent = {
 };
 
 export const site: SiteContent = {
-  wordmark: ["Sincere", "the GodSon"],
+  wordmark: ["SYNCERE", "the GodSon"],
   hero: {
     line: "The Book of Syncere. Debut project, coming soon.",
     portrait: {
       sources: ["images/hero.webp", "images/hero.jpg"],
-      alt: "Sincere the GodSon seated in a black double-breasted suit against a grey studio backdrop.",
+      alt: "SYNCERE the GodSon seated in a black double-breasted suit against a grey studio backdrop.",
       pendingAlt: "Portrait not yet added.",
       pendingLabel: "",
+      objectPosition: "74% 18%",
     },
     cta: { label: "Instagram", href: "" },
     presave: { label: "Pre-save", href: "" },
