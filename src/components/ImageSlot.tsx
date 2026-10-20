@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MediaSlot } from "../content/site.ts";
-import { Crown } from "./Crown.tsx";
 import { Images } from "../lib/images.ts";
+
+type Kind = "hero" | "cover" | "logo";
 
 type Props = {
   slot: MediaSlot;
-  kind?: "portrait" | "cover";
-  optional?: boolean;
+  kind: Kind;
   priority?: boolean;
   className?: string;
+  onReady?: (ready: boolean) => void;
 };
 
 class ClassList {
@@ -17,75 +18,55 @@ class ClassList {
   }
 }
 
-function Plate({ slot, kind }: { slot: MediaSlot; kind: "portrait" | "cover" }) {
-  if (kind === "cover") {
-    return (
-      <div className="plate plate-cover" role="img" aria-label={slot.pendingAlt}>
-        <span className="filigree" aria-hidden="true">
-          <span className="corner corner-ne" />
-          <span className="corner corner-sw" />
-        </span>
-        <Crown />
-        <span className="plate-title">{slot.pendingLabel}</span>
-        {slot.pendingDetail ? <span className="plate-detail">{slot.pendingDetail}</span> : null}
-        {slot.pendingMark ? <span className="plate-mark">{slot.pendingMark}</span> : null}
-      </div>
-    );
-  }
-
+function TypesetCover({ slot, className }: { slot: MediaSlot; className?: string }) {
   return (
-    <div className="plate plate-portrait" role="img" aria-label={slot.pendingAlt}>
-      <span className="plate-inset" aria-hidden="true" />
-      <span className="plate-caption">{slot.pendingLabel}</span>
+    <div className={ClassList.join("cover-set", className)} role="img" aria-label={slot.pendingAlt}>
+      <p>{slot.pendingLabel}</p>
     </div>
   );
 }
 
-export function ImageSlot({
-  slot,
-  kind = "portrait",
-  optional = false,
-  priority = false,
-  className,
-}: Props) {
+export function ImageSlot({ slot, kind, priority = false, className, onReady }: Props) {
   const [index, setIndex] = useState(0);
   const [ready, setReady] = useState(false);
   const path = slot.sources[index];
   const missed = path === undefined;
 
+  useEffect(() => {
+    if (missed) onReady?.(false);
+  }, [missed, onReady]);
+
   if (missed) {
-    if (optional) return null;
-    return (
-      <div className={ClassList.join("frame", className)}>
-        <Plate slot={slot} kind={kind} />
-        <span className="frame-grain" aria-hidden="true" />
-      </div>
-    );
+    if (kind === "cover") return <TypesetCover slot={slot} className={className} />;
+    return null;
   }
 
   return (
-    <div
-      className={ClassList.join("frame", className, optional && !ready && "is-offstage")}
-      aria-hidden={optional && !ready ? true : undefined}
-    >
-      {!ready ? <Plate slot={slot} kind={kind} /> : null}
-      <img
-        src={Images.url(path)}
-        alt={ready ? slot.alt : ""}
-        width={kind === "cover" ? 1200 : 960}
-        height={kind === "cover" ? 1200 : 1200}
-        decoding="async"
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
-        className={ready ? "is-ready" : undefined}
-        aria-hidden={ready ? undefined : true}
-        onLoad={() => setReady(true)}
-        onError={() => {
-          setReady(false);
-          setIndex((current) => current + 1);
-        }}
-      />
-      <span className="frame-grain" aria-hidden="true" />
-    </div>
+    <img
+      className={ClassList.join(
+        kind === "hero" && "hero-photo",
+        kind === "cover" && "cover-photo",
+        kind === "logo" && "logo",
+        ready && "is-ready",
+        className,
+      )}
+      src={Images.url(path)}
+      alt={ready ? slot.alt : ""}
+      width={kind === "logo" ? 240 : 1200}
+      height={kind === "logo" ? 80 : 1200}
+      decoding="async"
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
+      aria-hidden={ready ? undefined : true}
+      onLoad={() => {
+        setReady(true);
+        onReady?.(true);
+      }}
+      onError={() => {
+        setReady(false);
+        onReady?.(false);
+        setIndex((current) => current + 1);
+      }}
+    />
   );
 }

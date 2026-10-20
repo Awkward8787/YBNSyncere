@@ -1,3 +1,5 @@
+import type { ExternalLink } from "../content/site.ts";
+
 export class Web {
   static url(raw: string): URL | null {
     const value = raw.trim();
@@ -15,25 +17,31 @@ export class Web {
     return url.toString();
   }
 
-  static anyLive(links: readonly { href: string }[]): boolean {
-    return links.some((link) => Web.external(link.href) !== null);
+  static firstLive(links: readonly ExternalLink[]): ExternalLink | null {
+    for (const link of links) {
+      const href = Web.external(link.href);
+      if (href) return { label: link.label, href };
+    }
+    return null;
+  }
+
+  static email(raw: string): string | null {
+    const value = raw.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return null;
+    return value;
   }
 
   static embed(raw: string): string | null {
     const url = Web.url(raw);
     if (!url || url.protocol !== "https:") return null;
-
     if (url.hostname === "open.spotify.com") return Web.spotify(url);
     if (url.hostname === "embed.music.apple.com") return url.toString();
-    if (Web.youtubeHosts.has(url.hostname)) return Web.youtube(url);
+    if (url.hostname === "audiomack.com" || url.hostname === "www.audiomack.com") {
+      if (!url.pathname.startsWith("/embed/")) return null;
+      return url.toString();
+    }
     return null;
   }
-
-  private static youtubeHosts = new Set([
-    "www.youtube.com",
-    "youtube.com",
-    "www.youtube-nocookie.com",
-  ]);
 
   private static spotify(url: URL): string | null {
     const parts = url.pathname.split("/").filter(Boolean);
@@ -43,11 +51,5 @@ export class Web {
     if (!id) return null;
     if (kind !== "album" && kind !== "track" && kind !== "playlist") return null;
     return `https://open.spotify.com/embed/${kind}/${id}`;
-  }
-
-  private static youtube(url: URL): string | null {
-    if (url.pathname !== "/embed" && !url.pathname.startsWith("/embed/")) return null;
-    url.hostname = "www.youtube-nocookie.com";
-    return url.toString();
   }
 }

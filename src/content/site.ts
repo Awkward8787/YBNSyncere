@@ -1,23 +1,16 @@
 /**
- * Public copy and slots for the artist site.
+ * Public copy and slots.
  *
- * Photographs — drop files at these public paths. WebP is tried first, then JPG.
- * Every photo is rendered in black and white. Do not commit stand-in photos of a person.
- *   public/images/hero.webp|jpg         studio portrait, portrait orientation
- *   public/images/about.webp|jpg        casual portrait
- *   public/images/cover.webp|jpg        square jacket; shown in color, gold included
- *   public/images/brand-world.webp|jpg  optional; hidden until the file exists
+ * Hero photograph — public/images/hero.webp or .jpg
+ *   Shown full-bleed in black and white. Until the file exists, the hero is type only.
+ * Cover — public/images/cover.webp or .jpg
+ *   Square jacket, shown as supplied (gold stays in the file). Until then, a typeset title.
+ * Management logo — public/images/management.webp or .jpg
+ *   Optional. Hidden until the file exists.
  *
- * Tracks — append real entries to release.tracks:
- *   { numeral: "I", title: "Title", duration: "3:12" }
- *
- * Streaming — set href to an https URL. Empty href stays inert.
- * Player — set release.embedUrl to an https embed from Spotify, Apple Music, or YouTube.
- *   https://open.spotify.com/embed/album/…  (album/track/playlist URLs are normalized)
- *   https://embed.music.apple.com/…
- *   https://www.youtube.com/embed/…
- * Notify — set notify.endpoint to an https URL that accepts POST { "email": "…" }.
- *   http://localhost is allowed for local tests. An empty endpoint sends nothing.
+ * Links render only when href is an https URL.
+ * The player renders only when embedUrl is a Spotify, Apple Music, or Audiomack embed.
+ * Leave hero.cta.href and hero.presave.href empty to show no button.
  */
 
 export type MediaSlot = {
@@ -25,15 +18,6 @@ export type MediaSlot = {
   alt: string;
   pendingAlt: string;
   pendingLabel: string;
-  /** Second line on a typeset placeholder, such as a subtitle. */
-  pendingDetail?: string;
-  /** Small mark under a typeset placeholder, such as "Book I". */
-  pendingMark?: string;
-};
-
-export type PageLink = {
-  label: string;
-  href: string;
 };
 
 export type ExternalLink = {
@@ -47,148 +31,86 @@ export type Track = {
   duration?: string;
 };
 
-export type ReleaseStatus = "coming-soon" | "released";
-
-export type NotifyMessages = {
-  inert: string;
-  ok: string;
-  error: string;
-  invalid: string;
-};
-
 export type SiteContent = {
+  wordmark: readonly string[];
   hero: {
-    mark: string;
-    namePrimary: string;
-    nameSecondary: string;
-    tagline: string;
+    line: string;
     portrait: MediaSlot;
+    cta: ExternalLink;
+    presave: ExternalLink;
   };
-  nav: readonly PageLink[];
   release: {
     title: string;
     subtitle: string;
     book: string;
-    status: ReleaseStatus;
-    statusLabel: string;
-    lede: string;
     cover: MediaSlot;
-    streaming: readonly ExternalLink[];
     tracks: readonly Track[];
     embedUrl: string;
-    playerLabel: string;
-    playerPending: string;
+    tracklistPending: string;
+    listenPending: string;
   };
-  about: {
-    chapter: string;
-    kicker: string;
-    title: string;
-    portrait: MediaSlot;
+  bio: {
     paragraphs: readonly string[];
   };
-  brand: {
-    line: string;
-    image: MediaSlot;
-  };
   management: {
-    kicker: string;
-    name: string;
+    line: string;
+    href: string;
+    logo: MediaSlot;
   };
-  notify: {
-    heading: string;
-    body: string;
-    endpoint: string;
-    messages: NotifyMessages;
-  };
+  contact: string;
   socials: readonly ExternalLink[];
+  year: number;
 };
 
 export const site: SiteContent = {
+  wordmark: ["Sincere", "the GodSon"],
   hero: {
-    mark: "YBN SYNCERE",
-    namePrimary: "Sincere",
-    nameSecondary: "the GodSon",
-    tagline: "Contemporary soul, composed like a book.",
+    line: "The Book of Syncere. Debut project, coming soon.",
     portrait: {
       sources: ["images/hero.webp", "images/hero.jpg"],
       alt: "Sincere the GodSon seated in a black double-breasted suit against a grey studio backdrop.",
-      pendingAlt: "Studio portrait forthcoming. Empty black and white frame.",
-      pendingLabel: "Plate I",
+      pendingAlt: "Portrait not yet added.",
+      pendingLabel: "",
     },
+    cta: { label: "Instagram", href: "" },
+    presave: { label: "Pre-save", href: "" },
   },
-  nav: [
-    { label: "Music", href: "#music" },
-    { label: "About", href: "#about" },
-    { label: "Notify", href: "#notify" },
-  ],
   release: {
     title: "The Book of Syncere",
     subtitle: "Chozen Anomaly",
     book: "Book I",
-    status: "coming-soon",
-    statusLabel: "Coming Soon",
-    lede: "The debut is not streaming yet.",
     cover: {
       sources: ["images/cover.webp", "images/cover.jpg"],
-      alt: "Cover art for The Book of Syncere, Chozen Anomaly, Book I.",
-      pendingAlt:
-        "Cover art for The Book of Syncere has not been added yet. The jacket is gold lettering and a filigree frame on dark leather, with a small crown above the title.",
+      alt: "Cover art for The Book of Syncere.",
+      pendingAlt: "Title page for The Book of Syncere. Cover art not yet added.",
       pendingLabel: "The Book of Syncere",
-      pendingDetail: "Chozen Anomaly",
-      pendingMark: "Book I",
     },
-    streaming: [
-      { label: "Spotify", href: "" },
-      { label: "Apple Music", href: "" },
-      { label: "YouTube", href: "" },
-    ],
     tracks: [],
     embedUrl: "",
-    playerLabel: "Player",
-    playerPending: "The embedded player appears here when a release URL is set.",
+    tracklistPending: "Tracklist revealed on release.",
+    listenPending: "Listen here on release day.",
   },
-  about: {
-    chapter: "II",
-    kicker: "The Artist",
-    title: "Sincere the GodSon",
-    portrait: {
-      sources: ["images/about.webp", "images/about.jpg"],
-      alt: "Sincere the GodSon, casual portrait.",
-      pendingAlt: "Portrait forthcoming. Empty black and white frame.",
-      pendingLabel: "Plate II",
-    },
+  bio: {
     paragraphs: [
       "TODO: Replace this with the approved biography. Origin, credits, and figures stay out until they are supplied.",
     ],
   },
-  brand: {
-    line: "Made for a king.",
-    image: {
-      sources: ["images/brand-world.webp", "images/brand-world.jpg"],
-      alt: "1990 Cadillac Brougham GodSon Edition.",
-      pendingAlt: "Brand photograph not yet added.",
-      pendingLabel: "Brand",
-    },
-  },
   management: {
-    kicker: "Signed to",
-    name: "Loaded Sound Management",
-  },
-  notify: {
-    heading: "When it is out",
-    body: "Leave an email for the release of The Book of Syncere.",
-    endpoint: "",
-    messages: {
-      inert: "The list is not connected yet.",
-      ok: "Noted. You will hear when it is out.",
-      error: "That address could not be saved.",
-      invalid: "Enter a valid email address.",
+    line: "Managed by Loaded Sound Management",
+    href: "",
+    logo: {
+      sources: ["images/management.webp", "images/management.jpg"],
+      alt: "Loaded Sound Management.",
+      pendingAlt: "Logo not yet added.",
+      pendingLabel: "",
     },
   },
+  contact: "",
   socials: [
     { label: "Instagram", href: "" },
     { label: "TikTok", href: "" },
     { label: "YouTube", href: "" },
     { label: "X", href: "" },
   ],
+  year: 2026,
 };

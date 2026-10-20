@@ -1,6 +1,6 @@
 # Sincere the GodSon
 
-Static site for YBNSyncere. Copy, image slots, streaming links, and the notify endpoint live in [`src/content/site.ts`](src/content/site.ts).
+Static site for YBNSyncere. Copy, image slots, and links live in [`src/content/site.ts`](src/content/site.ts).
 
 ## Develop
 
@@ -21,19 +21,18 @@ The build writes `dist/`. Host that folder on any static host. There is no backe
 
 ## Photographs
 
-Drop files at the paths below. WebP is preferred; JPG is the fallback. Portraits are rendered in black and white. The cover is the one color slot, so its gold is left intact. Do not commit stand-in photos of a person — empty frames stay in place until the files exist.
+Drop files at the paths below. WebP is preferred; JPG is the fallback. Do not commit stand-in photos of a person. Until a file exists, that slot stays empty or typeset.
 
-- `public/images/hero.webp` or `public/images/hero.jpg` — studio portrait, portrait orientation
-- `public/images/about.webp` or `public/images/about.jpg` — casual portrait
-- `public/images/cover.webp` or `public/images/cover.jpg` — square jacket for The Book of Syncere
-- `public/images/brand-world.webp` or `public/images/brand-world.jpg` — optional; hidden until present
+- `public/images/hero.webp` or `public/images/hero.jpg` — one black-and-white portrait, subject on the right. Shown full-bleed and grayscale. Until the file exists, the hero is type only.
+- `public/images/cover.webp` or `public/images/cover.jpg` — square cover for The Book of Syncere. Shown in color, so gold that is already in the file stays in the file. Until then, the slot is a typeset title on paper.
+- `public/images/management.webp` or `public/images/management.jpg` — optional logo. Hidden until the file exists.
 
-## Release, socials, notify
+## Release and links
 
 In `src/content/site.ts`:
 
-- Append tracks to `release.tracks`.
-- Set streaming `href` values to `https` URLs.
-- Set `release.embedUrl` to a Spotify, Apple Music, or YouTube embed URL.
-- Set social `href` values the same way. Empty links stay visible and inert.
-- Leave `notify.endpoint` empty to keep the email form inert. When set, the form POSTs JSON `{ "email": "listener@example.com" }` and sends nothing until the request succeeds.
+- Replace the biography paragraphs. The current sentence is a placeholder marked TODO.
+- Append real tracks to `release.tracks`. Until then the page says “Tracklist revealed on release.”
+- Set `release.embedUrl` to a Spotify, Apple Music, or Audiomack embed URL. Any other value, including an empty string, shows “Listen here on release day.”
+- Set `hero.cta.href` or `hero.presave.href` to an `https` URL to show one link on the hero, and only after the portrait file is present.
+- Set `management.href`, `contact`, and social `href` values to real `https` URLs or an email. Empty values are omitted.

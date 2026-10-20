@@ -1,24 +1,17 @@
-import { About } from "./components/About.tsx";
-import { BrandLine } from "./components/BrandLine.tsx";
+import { Bio } from "./components/Bio.tsx";
+import { Credit } from "./components/Credit.tsx";
 import { Footer } from "./components/Footer.tsx";
 import { Hero } from "./components/Hero.tsx";
-import { Management } from "./components/Management.tsx";
 import { Music } from "./components/Music.tsx";
-import { NotifyForm } from "./components/NotifyForm.tsx";
 
 export default function App() {
   return (
     <>
-      <a className="skip" href="#artist-name">
-        Skip to content
-      </a>
-      <main id="content">
+      <main>
         <Hero />
         <Music />
-        <About />
-        <BrandLine />
-        <Management />
-        <NotifyForm />
+        <Bio />
+        <Credit />
       </main>
       <Footer />
     </>

@@ -1,11 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@fontsource/cormorant-garamond/latin-500.css";
-import "@fontsource/cormorant-garamond/latin-500-italic.css";
-import "@fontsource/cormorant-garamond/latin-600.css";
-import "@fontsource/outfit/latin-300.css";
-import "@fontsource/outfit/latin-400.css";
-import "@fontsource/outfit/latin-500.css";
+import "@fontsource/libre-caslon-display/latin-400.css";
+import "@fontsource/libre-franklin/latin-400.css";
+import "@fontsource/libre-franklin/latin-500.css";
+import "@fontsource/libre-franklin/latin-600.css";
 import "./index.css";
 import App from "./App.tsx";
 
