@@ -251,20 +251,20 @@ a.text-link.social:hover {
 .hero-meta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.55rem;
   margin-top: 1.1rem;
   color: var(--muted);
-  font-size: 0.68rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
-.hero-meta::before {
-  content: "";
-  width: 1.75rem;
-  height: 1px;
-  background: currentColor;
+.crown {
+  width: 1.15rem;
+  height: auto;
+  flex: none;
 }
 
 .hero-portrait {
@@ -327,16 +327,84 @@ a.text-link.social:hover {
 }
 
 .plate-cover {
-  display: grid;
-  place-items: center;
+  --gold: #e8d5a3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
   text-align: center;
-  padding: 1.4rem;
+  padding: 14%;
+  color: var(--gold);
+  background-color: #16110d;
+  background-image:
+    url("./assets/grain.png"),
+    radial-gradient(ellipse at 50% 0%, rgba(120, 78, 36, 0.35), transparent 46%),
+    linear-gradient(180deg, #2b231c 0%, #120e0b 72%);
+  background-size: 140px 140px, auto, auto;
+  background-blend-mode: soft-light, normal, normal;
+}
+
+.filigree {
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 0 5px #16110d,
+    0 0 0 6px rgba(232, 213, 163, 0.72);
+  pointer-events: none;
+}
+
+.filigree::before,
+.filigree::after,
+.corner {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid var(--gold);
+}
+
+.filigree::before {
+  content: "";
+  top: -0.28rem;
+  left: -0.28rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.filigree::after {
+  content: "";
+  right: -0.28rem;
+  bottom: -0.28rem;
+  border-left: 0;
+  border-top: 0;
+}
+
+.corner-ne {
+  top: -0.28rem;
+  right: -0.28rem;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.corner-sw {
+  bottom: -0.28rem;
+  left: -0.28rem;
+  border-right: 0;
+  border-top: 0;
+}
+
+.plate-cover .crown {
+  position: relative;
+  z-index: 1;
+  width: 2.35rem;
+  margin-bottom: 0.2rem;
 }
 
 .plate-title {
   position: relative;
   z-index: 1;
-  max-width: 8.5ch;
+  max-width: 9ch;
   color: var(--hero-ink);
   font-family: var(--serif);
   font-style: italic;
@@ -344,6 +412,34 @@ a.text-link.social:hover {
   font-size: clamp(2rem, 5vw, 2.9rem);
   line-height: 0.92;
   letter-spacing: -0.03em;
+}
+
+.plate-cover .plate-title {
+  max-width: 12ch;
+  color: var(--gold);
+  font-size: clamp(1.85rem, 4vw, 2.55rem);
+}
+
+.plate-detail,
+.plate-mark {
+  position: relative;
+  z-index: 1;
+  color: var(--gold);
+}
+
+.plate-detail {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.1;
+}
+
+.plate-mark {
+  margin-top: 0.35rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
 }
 
 .frame img {
@@ -443,8 +539,35 @@ a.text-link.social:hover {
 }
 
 .cover-frame {
+  --gold: #e8d5a3;
   width: min(100%, 420px);
   aspect-ratio: 1;
+  box-shadow: 0 0 0 1px var(--gold);
+}
+
+.cover-frame img {
+  filter: none;
+}
+
+.cover-frame .frame-grain {
+  display: none;
+}
+
+.book-kicker {
+  text-transform: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.release-sub {
+  margin-top: 0.55rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  line-height: 1.1;
 }
 
 .release-status {

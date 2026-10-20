@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { MediaSlot } from "../content/site.ts";
+import { Crown } from "./Crown.tsx";
 import { Images } from "../lib/images.ts";
 
 type Props = {
@@ -17,10 +18,25 @@ class ClassList {
 }
 
 function Plate({ slot, kind }: { slot: MediaSlot; kind: "portrait" | "cover" }) {
+  if (kind === "cover") {
+    return (
+      <div className="plate plate-cover" role="img" aria-label={slot.pendingAlt}>
+        <span className="filigree" aria-hidden="true">
+          <span className="corner corner-ne" />
+          <span className="corner corner-sw" />
+        </span>
+        <Crown />
+        <span className="plate-title">{slot.pendingLabel}</span>
+        {slot.pendingDetail ? <span className="plate-detail">{slot.pendingDetail}</span> : null}
+        {slot.pendingMark ? <span className="plate-mark">{slot.pendingMark}</span> : null}
+      </div>
+    );
+  }
+
   return (
-    <div className={`plate plate-${kind}`} role="img" aria-label={slot.pendingAlt}>
+    <div className="plate plate-portrait" role="img" aria-label={slot.pendingAlt}>
       <span className="plate-inset" aria-hidden="true" />
-      <span className={kind === "cover" ? "plate-title" : "plate-caption"}>{slot.pendingLabel}</span>
+      <span className="plate-caption">{slot.pendingLabel}</span>
     </div>
   );
 }

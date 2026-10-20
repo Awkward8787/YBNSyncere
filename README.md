@@ -21,11 +21,11 @@ The build writes `dist/`. Host that folder on any static host. There is no backe
 
 ## Photographs
 
-Drop files at the paths below. WebP is preferred; JPG is the fallback. The page renders them in black and white. Do not commit stand-in photos of a person — empty frames stay in place until the files exist.
+Drop files at the paths below. WebP is preferred; JPG is the fallback. Portraits are rendered in black and white. The cover is the one color slot, so its gold is left intact. Do not commit stand-in photos of a person — empty frames stay in place until the files exist.
 
 - `public/images/hero.webp` or `public/images/hero.jpg` — studio portrait, portrait orientation
 - `public/images/about.webp` or `public/images/about.jpg` — casual portrait
-- `public/images/cover.webp` or `public/images/cover.jpg` — jacket art
+- `public/images/cover.webp` or `public/images/cover.jpg` — square jacket for The Book of Syncere
 - `public/images/brand-world.webp` or `public/images/brand-world.jpg` — optional; hidden until present
 
 ## Release, socials, notify

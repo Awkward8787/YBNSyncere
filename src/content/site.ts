@@ -5,7 +5,7 @@
  * Every photo is rendered in black and white. Do not commit stand-in photos of a person.
  *   public/images/hero.webp|jpg         studio portrait, portrait orientation
  *   public/images/about.webp|jpg        casual portrait
- *   public/images/cover.webp|jpg        jacket art for The Book of Sincere
+ *   public/images/cover.webp|jpg        square jacket; shown in color, gold included
  *   public/images/brand-world.webp|jpg  optional; hidden until the file exists
  *
  * Tracks — append real entries to release.tracks:
@@ -25,6 +25,10 @@ export type MediaSlot = {
   alt: string;
   pendingAlt: string;
   pendingLabel: string;
+  /** Second line on a typeset placeholder, such as a subtitle. */
+  pendingDetail?: string;
+  /** Small mark under a typeset placeholder, such as "Book I". */
+  pendingMark?: string;
 };
 
 export type PageLink = {
@@ -58,17 +62,13 @@ export type SiteContent = {
     namePrimary: string;
     nameSecondary: string;
     tagline: string;
-    project: string;
-    meta: string;
     portrait: MediaSlot;
   };
   nav: readonly PageLink[];
-  music: {
-    chapter: string;
-    kicker: string;
-  };
   release: {
     title: string;
+    subtitle: string;
+    book: string;
     status: ReleaseStatus;
     statusLabel: string;
     lede: string;
@@ -109,8 +109,6 @@ export const site: SiteContent = {
     namePrimary: "Sincere",
     nameSecondary: "the GodSon",
     tagline: "Contemporary soul, composed like a book.",
-    project: "The Book of Sincere — Coming Soon",
-    meta: "Volume I  ·  Debut",
     portrait: {
       sources: ["images/hero.webp", "images/hero.jpg"],
       alt: "Sincere the GodSon seated in a black double-breasted suit against a grey studio backdrop.",
@@ -123,20 +121,21 @@ export const site: SiteContent = {
     { label: "About", href: "#about" },
     { label: "Notify", href: "#notify" },
   ],
-  music: {
-    chapter: "I",
-    kicker: "The Music",
-  },
   release: {
-    title: "The Book of Sincere",
+    title: "The Book of Syncere",
+    subtitle: "Chozen Anomaly",
+    book: "Book I",
     status: "coming-soon",
     statusLabel: "Coming Soon",
     lede: "The debut is not streaming yet.",
     cover: {
       sources: ["images/cover.webp", "images/cover.jpg"],
-      alt: "Cover art for The Book of Sincere.",
-      pendingAlt: "Cover art for The Book of Sincere. Artwork not yet added.",
-      pendingLabel: "The Book of Sincere",
+      alt: "Cover art for The Book of Syncere, Chozen Anomaly, Book I.",
+      pendingAlt:
+        "Cover art for The Book of Syncere has not been added yet. The jacket is gold lettering and a filigree frame on dark leather, with a small crown above the title.",
+      pendingLabel: "The Book of Syncere",
+      pendingDetail: "Chozen Anomaly",
+      pendingMark: "Book I",
     },
     streaming: [
       { label: "Spotify", href: "" },
@@ -177,7 +176,7 @@ export const site: SiteContent = {
   },
   notify: {
     heading: "When it is out",
-    body: "Leave an email for the release of The Book of Sincere.",
+    body: "Leave an email for the release of The Book of Syncere.",
     endpoint: "",
     messages: {
       inert: "The list is not connected yet.",

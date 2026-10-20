@@ -10,15 +10,16 @@ export function Music() {
   return (
     <section className="section music" id="music" aria-labelledby="music-title">
       <div className="wrap">
-        <p className="section-kicker">
-          <span>Chapter {site.music.chapter}</span>
+        <p className="section-kicker book-kicker">
+          <span>{release.book}</span>
           <span aria-hidden="true">/</span>
-          <span>{site.music.kicker}</span>
+          <span>{release.subtitle}</span>
         </p>
         <div className="music-layout">
           <ImageSlot slot={release.cover} kind="cover" className="cover-frame" />
           <div className="music-copy">
             <h2 id="music-title">{release.title}</h2>
+            <p className="release-sub">{release.subtitle}</p>
             <p className="release-status">{release.statusLabel}</p>
             <p className="lede">{release.lede}</p>
 

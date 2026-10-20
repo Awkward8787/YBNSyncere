@@ -1,4 +1,5 @@
 import { site } from "../content/site.ts";
+import { Crown } from "./Crown.tsx";
 import { ImageSlot } from "./ImageSlot.tsx";
 
 export function Hero() {
@@ -25,8 +26,16 @@ export function Hero() {
               <span className="wordmark-secondary">{site.hero.nameSecondary}</span>
             </h1>
             <p className="tagline">{site.hero.tagline}</p>
-            <p className="project-line">{site.hero.project}</p>
-            <p className="hero-meta">{site.hero.meta}</p>
+            <p className="project-line">
+              {site.release.title}
+              <span className="project-soon"> — {site.release.statusLabel}</span>
+            </p>
+            <p className="hero-meta">
+              <Crown />
+              <span>{site.release.book}</span>
+              <span aria-hidden="true">·</span>
+              <span>{site.release.subtitle}</span>
+            </p>
           </div>
           <ImageSlot slot={site.hero.portrait} priority className="hero-portrait" />
         </div>
