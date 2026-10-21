@@ -1,0 +1,391 @@
+:root {
+  --black: #0b0b0b;
+  --paper: #f2efe8;
+  --meta: #9a9690;
+  --display: "Libre Caslon Display", "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --sans: "Libre Franklin", "Avenir Next", "Segoe UI", sans-serif;
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+  --s10: 128px;
+  --s11: 160px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}
+
+.hero :focus-visible {
+  outline-color: var(--paper);
+}
+
+.wrap {
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(88svh, 960px);
+  overflow: hidden;
+  background: var(--black);
+  color: var(--paper);
+}
+
+.hero-photo {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 74% 18%;
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0;
+}
+
+.hero-photo.is-ready {
+  animation: fade 400ms ease forwards;
+}
+
+.hero-scrim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #0b0b0b 0%,
+    rgb(11 11 11 / 0.97) 58%,
+    rgb(11 11 11 / 0.82) 72%,
+    rgb(11 11 11 / 0.28) 86%,
+    rgb(11 11 11 / 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+  padding-bottom: 80px;
+  container-type: inline-size;
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(56px, 11vw, 160px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  animation: fade 400ms ease;
+}
+
+.wordmark span {
+  display: block;
+  letter-spacing: 0.03em;
+}
+
+.wordmark span + span {
+  font-size: min(1em, 13.2cqi);
+}
+
+.hero-line {
+  max-width: 36em;
+  margin: var(--s5) 0 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: var(--s4);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.text-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.music {
+  padding-block: var(--s8);
+}
+
+.music-layout {
+  display: grid;
+  gap: var(--s6);
+  align-items: start;
+}
+
+.cover-set {
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 1;
+  padding: var(--s5);
+  border: 1px solid var(--black);
+  background: var(--paper);
+}
+
+.cover-set p {
+  margin: 0;
+  max-width: 9em;
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  line-height: 0.95;
+  text-align: left;
+}
+
+.cover-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: none;
+}
+
+.music-copy h2 {
+  margin: 0;
+  max-width: 12em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 56px);
+  line-height: 1.05;
+}
+
+.meta {
+  margin: var(--s3) 0 0;
+  color: var(--meta);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.music-copy > p {
+  max-width: 65ch;
+  margin: var(--s5) 0 0;
+}
+
+.tracks {
+  margin: var(--s5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tracks li {
+  display: grid;
+  grid-template-columns: 3em minmax(0, 1fr) auto;
+  gap: var(--s4);
+  align-items: baseline;
+  padding-block: var(--s3);
+  border-top: 1px solid var(--black);
+}
+
+.embed {
+  display: block;
+  width: 100%;
+  height: 152px;
+  margin-top: var(--s6);
+  border: 0;
+}
+
+.bio {
+  padding-block: var(--s7);
+}
+
+.bio-copy {
+  max-width: min(680px, 66ch);
+}
+
+.bio-copy p {
+  margin: 0;
+}
+
+.bio-copy p + p {
+  margin-top: var(--s4);
+}
+
+.credit {
+  padding-block: 40px;
+}
+
+.credit-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.credit-row p {
+  margin: 0;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 48px;
+}
+
+.footer {
+  padding-block: var(--s6);
+}
+
+.footer-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4) var(--s5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.socials a,
+.footer-row > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+}
+
+.footer .meta {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+
+  .wrap {
+    width: min(1200px, calc(100% - 64px));
+  }
+
+  .hero-copy {
+    width: min(1200px, calc(100% - 64px));
+    padding-bottom: var(--s11);
+  }
+
+  .hero-line {
+    font-size: 18px;
+  }
+
+  .music {
+    padding-block: var(--s10);
+  }
+
+  .music-layout {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--s7);
+  }
+
+  .bio {
+    padding-block: var(--s9);
+  }
+
+  .credit {
+    padding-block: var(--s8);
+  }
+
+  .footer {
+    padding-block: var(--s7);
+  }
+
+  .footer-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bio .wrap {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--s5);
+  }
+
+  .bio-copy {
+    grid-column: 3 / -1;
+    max-width: min(680px, 66ch);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo,
+  .hero-photo.is-ready,
+  .wordmark {
+    animation: none;
+  }
+
+  .hero-photo.is-ready {
+    opacity: 1;
+  }
+}
