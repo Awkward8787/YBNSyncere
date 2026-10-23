@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="SYNCERE the GodSon" width="100%">
+  <img src="assets/banner.png" alt="SYNCERE the GodSon" width="100%">
 </p>
 
 # SYNCERE the GodSon
@@ -12,6 +12,17 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 
 Static site for YBNSyncere. Copy, image slots, and links live in [`src/content/site.ts`](src/content/site.ts).
+
+
+## How it works
+
+```mermaid
+flowchart LR
+  C[src/content/site.ts] --> S[Static Vite site]
+  S --> V[Visitor]
+```
+
+Static artist title page. Copy, image slots, and links are content-driven from `site.ts`.
 
 ## Develop
 
