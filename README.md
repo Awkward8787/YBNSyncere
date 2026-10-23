@@ -1,4 +1,15 @@
+<p align="center">
+  <img src="docs/banner.png" alt="SYNCERE the GodSon" width="100%">
+</p>
+
 # SYNCERE the GodSon
+
+**Static artist site for YBNSyncere. Copy, image slots, and links live in `src/content/site.ts`.**
+
+[![License: All Rights Reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)](#license)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 
 Static site for YBNSyncere. Copy, image slots, and links live in [`src/content/site.ts`](src/content/site.ts).
 
@@ -36,3 +47,7 @@ In `src/content/site.ts`:
 - Set `release.embedUrl` to a Spotify, Apple Music, or Audiomack embed URL. Any other value, including an empty string, shows “Listen here on release day.”
 - Set `hero.cta.href` or `hero.presave.href` to an `https` URL to show one link on the hero, and only after the portrait file is present.
 - Set `management.href`, `contact`, and social `href` values to real `https` URLs or an email. Empty values are omitted.
+
+## License
+
+All rights reserved.
